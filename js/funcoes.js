@@ -28,3 +28,21 @@ const obj = {
 };
 
 obj.falar();
+
+
+
+// parametros na funcao
+
+function funcao(a, b, c) {
+    console.log(a, b, c);
+}
+funcao(1, 2, 3);
+
+
+function dados({ nome, idade }) {
+    console.log({ nome, idade });
+}
+
+let obj = { nome: 'mateus', idade: 19 };
+
+dados(obj);
