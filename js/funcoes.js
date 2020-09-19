@@ -46,3 +46,50 @@ function dados({ nome, idade }) {
 let obj = { nome: 'mateus', idade: 19 };
 
 dados(obj);
+
+
+//retorno de funcao
+
+function soma(a, b) {
+    return a + b;
+}
+console.log(soma(5, 2));
+
+function criarPessoa(nome, sobrenome) {
+
+    return { nome, sobrenome };
+}
+
+const p1 = criarPessoa('mateus', 'amaral');
+
+function falaFrase(comeco) {
+    function falaresto(resto) {
+        return comeco + ' ' + resto;
+
+    }
+    return falaresto;
+}
+
+const fala = falaFrase('ola');
+const resto = fala('mundo!');
+console.log(resto);
+
+function criarMultiplicador(multiplicador) {
+
+    return function (n) {
+
+        return n * multiplicador;
+    };
+
+}
+
+const duplica = criarMultiplicador(2);
+const triplica = criarMultiplicador(3);
+const quadriplica = criarMultiplicador(4);
+
+console.log(duplica(2));
+console.log(triplica(2));
+
+console.log(quadriplica(2));
+
+
