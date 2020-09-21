@@ -149,3 +149,43 @@ console.log('olá mundo')
         falaNome();
         console.log(idade, peso, altura);
     })(19, 75, 1.75);
+
+//funções fábricas
+
+function criaPessoa(nome, sobrenome, altura, peso) {
+    return {
+        nome,
+        sobrenome,
+        //getter
+        get nomeCompleto() {
+            return `${nome} ${sobrenome}`;
+        },
+        //setter
+        set nomeCompleto(valor) {
+            valor = valor.split(' ');
+            this.nome = valor.shift();
+            this.sobrenome = valor.join(' ');
+            console.log(valor);
+        },
+        fala(assunto = "falando sobre NADA.") {
+            return `${this.nome} está ${assunto}`
+        },
+
+        altura,
+        peso,
+        //gettere
+
+        get imc() {
+            const indice = this.peso / (this.altura ** 2);
+            return indice.toFixed(2);
+        }
+
+    }
+}
+
+const p1 = criarPessoa('Mateus', 'Amaral', 1.8, 80);
+p1.nomeCompleto = 'Mateus Passos Amaral'
+console.log(p1.nome);
+console.log(p1.sobrenome);
+console.log(p1.imc);
+
