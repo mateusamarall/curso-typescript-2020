@@ -131,3 +131,21 @@ f3();
 
 
 console.log('olá mundo')
+
+
+    //IIFE -> funções imediatas
+
+    (function (idade, peso, altura) {
+
+        const sobrenome = "Amaral";
+
+        function criaNome(nome) {
+            return nome + ' ' + sobrenome;
+        }
+
+        function falaNome() {
+            console.log(criaNome('mateus'));
+        }
+        falaNome();
+        console.log(idade, peso, altura);
+    })(19, 75, 1.75);
