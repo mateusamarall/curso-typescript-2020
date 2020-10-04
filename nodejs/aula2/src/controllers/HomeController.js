@@ -1,3 +1,9 @@
+
+const HomeModel = require('../models/Home');
+
+HomeModel.find()
+    .then(dados => console.log(dados))
+    .catch(e => console.log(e));
 exports.paginaInicial = (req, res) => {
 
     res.render('index');
