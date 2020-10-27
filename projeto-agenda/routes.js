@@ -8,6 +8,8 @@ const loginController = require('./src/controllers/loginController');
 route.get('/', homeController.index);
 
 route.get('/login',loginController.index )
+route.post('/login/register',loginController.create)
+
 
 
 module.exports = route;
