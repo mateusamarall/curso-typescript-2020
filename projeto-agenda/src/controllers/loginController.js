@@ -4,8 +4,8 @@ module.exports ={
     res.render('login');
   },
   async create (req,res){ 
-
-    const login = new Login(req.body);
+    try {
+      const login = new Login(req.body);
 
     await login.register();
     
@@ -21,8 +21,16 @@ module.exports ={
       return;
 
     }
+    req.flash('success', 'Usuário criado com sucesso.');
+    req.session.save(function(){
+      
+      res.redirect('back');
 
-    res.send(login.user);
+    });
 
+    } catch (error) {
+      console.log(error);
+      res.render('404')
+    }
   }
 }
