@@ -10,11 +10,13 @@ module.exports ={
     await login.register();
     
     if(login.errors.length > 0){
+      
       req.flash('errors', login.errors);
       req.session.save(function(){
         res.redirect('back');
       });
-      
+
+
     }
 
     res.send(login.user);
