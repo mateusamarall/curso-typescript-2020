@@ -3,13 +3,19 @@ module.exports ={
   index(req,res){
     res.render('login');
   },
-  create (req,res){ 
+  async create (req,res){ 
 
     const login = new Login(req.body);
 
-    login.register();
+    await login.register();
+    if(login.errors.length > 0){
+      req.flash('errors', login.errors);
+      req.session.save(function(){
+        res.redirect('back');
+      });
+    }
 
-    res.json(login.body);
+    res.send(login.user);
 
   }
 }
