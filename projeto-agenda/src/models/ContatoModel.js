@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { async } = require('regenerator-runtime');
 const validator = require('validator');
 const ContatoSchema = new mongoose.Schema({
   nome: { type: String, required: true },
@@ -17,6 +18,14 @@ function Contato(body){
   this.body = body;
   this.errors = [];
   this.contato = null;
+}
+Contato.buscaPorId = async function(id){
+  if(typeof id !== 'string'){
+    return;
+  }
+  const user =await ContatoModel.findById(id);
+  return user;
+
 }
 
 Contato.prototype.register = async function(){
