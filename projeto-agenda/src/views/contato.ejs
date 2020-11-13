@@ -13,8 +13,15 @@
        Contato
       </h1>
       <p class="text-center lead"> Crie ou edite seu contato abaixo.</p>
-     <% include('includes/messages')%>
+     
+      <%- include('includes/messages') %>
+    
+     <% if(contato.id){ %>
+      <form action="/contato/edit/<%= contato._id%>" method="POST">
+      <% }else{  %>
+      <form action="/contato/register" method="POST">
 
+      <% } %>
 
      <div class="row">
       

@@ -18,6 +18,8 @@ route.get('/login/logout',loginController.logout);
 route.get('/contato', loginRequired,contatoController.index);
 route.post('/contato/register', loginRequired,contatoController.register);
 route.get('/contato/index/:id', loginRequired,contatoController.update);
+route.post('/contato/edit/:id', loginRequired,contatoController.edit);
+
 
 
 

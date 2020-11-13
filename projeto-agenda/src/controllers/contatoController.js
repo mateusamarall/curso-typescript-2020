@@ -39,5 +39,30 @@ module.exports = {
     res.render('contato',{
       contato
     });
- } 
+ },
+
+ async edit(req,res){
+   try {
+       if(!req.params.id) return res.render('404');
+
+  const contato = new Contato(req.body);
+  await contato.edit(req.params.id);
+
+  if(contato.errors.length > 0){
+    req.flash('errors', contato.errors);
+
+    req.session.save(()=>res.redirect('back'));
+    return;
+  }
+
+  req.flash('success', 'Contato editado com sucesso');
+  req.session.save(()=>res.redirect(`/contato/index/${contato.contato.id}`));
+  return;
+   } catch (error) {
+     console.log(error);
+     res.render('404');
+   }
+
+
+ }
 }
