@@ -1,26 +1,26 @@
 const Contato = require('../models/ContatoModel');
 
 module.exports = {
-  index(req,res){
-    res.render('contato',{
-      contato:{}
+  index(req, res) {
+    res.render('contato', {
+      contato: {}
     });
   },
 
-  async register(req,res){
+  async register(req, res) {
     try {
       const contato = new Contato(req.body);
       await contato.register();
-      
-      if(contato.errors.length > 0){
+
+      if (contato.errors.length > 0) {
         req.flash('errors', contato.errors);
-  
-        req.session.save(()=>res.redirect('back'));
+
+        req.session.save(() => res.redirect('back'));
         return;
       }
 
       req.flash('success', 'Contato registrado com sucesso');
-      req.session.save(()=>res.redirect(`/contato/index/${contato.contato.id}`));
+      req.session.save(() => res.redirect(`/contato/index/${contato.contato.id}`));
       return;
     } catch (error) {
       console.log(error);
@@ -29,40 +29,62 @@ module.exports = {
     }
 
   },
-  async update(req,res){
-    if(!req.params.id){
+  async update(req, res) {
+    if (!req.params.id) {
       return res.render('404');
     }
     const contato = await Contato.buscaPorId(req.params.id);
 
-    if(!contato) return res.render('404')
-    res.render('contato',{
+    if (!contato) return res.render('404')
+    res.render('contato', {
       contato
     });
- },
+  },
 
- async edit(req,res){
-   try {
-       if(!req.params.id) return res.render('404');
+  async edit(req, res) {
+    try {
+      if (!req.params.id) return res.render('404');
 
-  const contato = new Contato(req.body);
-  await contato.edit(req.params.id);
+      const contato = new Contato(req.body);
+      await contato.edit(req.params.id);
 
-  if(contato.errors.length > 0){
-    req.flash('errors', contato.errors);
+      if (contato.errors.length > 0) {
+        req.flash('errors', contato.errors);
 
-    req.session.save(()=>res.redirect('back'));
-    return;
+        req.session.save(() => res.redirect('back'));
+        return;
+      }
+
+      req.flash('success', 'Contato editado com sucesso');
+      req.session.save(() => res.redirect(`/contato/index/${contato.contato.id}`));
+      return;
+    } catch (error) {
+      console.log(error);
+      res.render('404');
+    }
+
+
+  },
+
+  async delete(req, res) {
+
+    try {
+      if (!req.params.id) return res.render('404');
+
+      const contato = await Contato.delete(req.params.id);
+  
+      if (!contato) {
+        return res.render('404');
+      }
+     
+      req.flash('success', 'Contato excluido com sucesso');
+      req.session.save(() => res.redirect('back'));
+      return;
+    
+    } catch (error) {
+      console.log(error);
+    }
+
+
   }
-
-  req.flash('success', 'Contato editado com sucesso');
-  req.session.save(()=>res.redirect(`/contato/index/${contato.contato.id}`));
-  return;
-   } catch (error) {
-     console.log(error);
-     res.render('404');
-   }
-
-
- }
 }

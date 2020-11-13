@@ -2,7 +2,7 @@
 <%- include('includes/nav') %>
 
 
-  <div class="row">
+  <div class="row bg-white">
     <div class="col-md-2">
 
     </div>
@@ -17,26 +17,20 @@
 
         <div class="responsive-table">
           <table class="table my-3">
-            <tr>
-              <td>mateus</td>
-              <td>amaral</td>
-              <td>40028922</td>
-              <td>mateus@email.com</td>
-            </tr>
+            <% contatos.forEach(contato =>{ %>
+              <tr>
+                <td><%= contato.nome %></td>
+                <td><%= contato.sobrenome %></td>
+                <td><%= contato.telefone %></td>
+                <td><%= contato.email %></td>
+                <td><a class="text-warning" href="/contato/index/<%= contato._id %>">Editar</a></td>
+                <td><a class="text-danger"  href="/contato/delete/<%= contato._id %>">Excluir</a></td>
 
-            <tr>
-              <td>mateus</td>
-              <td>amaral</td>
-              <td>40028922</td>
-              <td>mateus@email.com</td>
-            </tr>
 
-            <tr>
-              <td>mateus</td>
-              <td>amaral</td>
-              <td>40028922</td>
-              <td>mateus@email.com</td>
-            </tr>
+              </tr>
+  
+              <%  }); %>
+            
           </table>
         </div>
 
